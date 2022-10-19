@@ -50,7 +50,9 @@ describe('ProductsService', () => {
       }
     }];
 
-    expect(service.getProducts()).toEqual(expectedProductData);
+    service.getProducts().subscribe(products =>
+      expect(products).toEqual(expectedProductData)
+    );
 
     const req = httpTestingController.expectOne('https://fakestoreapi.com/products');
     expect(req.request.method).toEqual('GET');
