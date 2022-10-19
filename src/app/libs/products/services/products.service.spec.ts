@@ -1,18 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { ProductModel } from '../models/product.model';
 import { ProductsService } from './products.service';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('ProductsService', () => {
   let service: ProductsService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
       providers: [
         ProductsService
       ]
     });
 
     service = TestBed.inject(ProductsService);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   it('should return product list', () => {
@@ -47,6 +51,11 @@ describe('ProductsService', () => {
     }];
 
     expect(service.getProducts()).toEqual(expectedProductData);
+
+    const req = httpTestingController.expectOne('https://fakestoreapi.com/products');
+    expect(req.request.method).toEqual('GET');
+
+    httpTestingController.verify();
   });
 
 });
