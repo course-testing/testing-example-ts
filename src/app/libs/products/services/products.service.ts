@@ -1,10 +1,19 @@
 import { Injectable } from '@angular/core';
 import { ProductModel } from '../models/product.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 @Injectable()
 export class ProductsService {
-  getProducts(): ProductModel[] {
-    return [{
+  constructor(private _httpClient: HttpClient) {
+  }
+
+
+  getProducts(): Observable<ProductModel[]> {
+
+    this._httpClient.get('https://fakestoreapi.com/products').subscribe();
+
+    return of([{
       id: '__PRODUCT_1_ID__',
       title: '__PRODUCT_1_TITLE__',
       price: {
@@ -32,6 +41,6 @@ export class ProductsService {
         rate: 4,
         count: 987
       }
-    }];
+    }]);
   }
 }
