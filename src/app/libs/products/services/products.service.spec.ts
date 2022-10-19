@@ -57,6 +57,31 @@ describe('ProductsService', () => {
     const req = httpTestingController.expectOne('https://fakestoreapi.com/products');
     expect(req.request.method).toEqual('GET');
 
+    const response = [{
+      id: '__PRODUCT_1_ID__',
+      title: '__PRODUCT_1_TITLE__',
+      price: 123.23,
+      description: '__PRODUCT_1_DESCRIPTION__',
+      category: '__PRODUCT_1_CATEGORY__',
+      image: '__PRODUCT_1_IMAGE__',
+      rating: {
+        rate: 5,
+        count: 567
+      }
+    }, {
+      id: '__PRODUCT_2_ID__',
+      title: '__PRODUCT_2_TITLE__',
+      price: 456.33,
+      description: '__PRODUCT_2_DESCRIPTION__',
+      category: '__PRODUCT_2_CATEGORY__',
+      image: '__PRODUCT_2_IMAGE__',
+      rating: {
+        rate: 4,
+        count: 987
+      }
+    }];
+    req.flush(response);
+
     httpTestingController.verify();
   });
 
