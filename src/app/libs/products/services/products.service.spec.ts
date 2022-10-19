@@ -19,6 +19,10 @@ describe('ProductsService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+
   it('should return product list', () => {
     const expectedProductData: ProductModel[] = [{
       id: '__PRODUCT_1_ID__',
@@ -81,8 +85,6 @@ describe('ProductsService', () => {
       }
     }];
     req.flush(response);
-
-    httpTestingController.verify();
   });
 
 });
