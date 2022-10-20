@@ -18,6 +18,6 @@ describe('ProductsComponent', () => {
     fixture.detectChanges();
     const productsNodes = fixture.debugElement.queryAll(By.css(`[data-selector="product-container"]`));
 
-    expect(productsNodes.length).toEqual(1);
+    expect(productsNodes.length).toEqual(2);
   });
 });
