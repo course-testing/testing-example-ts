@@ -74,7 +74,7 @@ describe('ProductsService', () => {
         count: 987
       }
     }];
-    const { when, httpTestingController } = await given(response);
+    const { when, then } = await given(response);
 
     const expectedProductData: ProductModel[] = [{
       id: '__PRODUCT_1_ID__',
@@ -110,13 +110,8 @@ describe('ProductsService', () => {
       expect(products).toEqual(expectedProductData)
     );
 
-    const req = httpTestingController.expectOne('https://fakestoreapi.com/products');
+    const req = then.expectUrl('https://fakestoreapi.com/products');
     expect(req.request.method).toEqual('GET');
-
-
-    req.flush(response);
-
-    httpTestingController.verify();
   });
 
 });
