@@ -1,1 +1,5 @@
-<div data-selector="product-container"></div>
+<ng-container *ngIf="products$ | async as productsList">
+  <ng-container *ngFor="let product of productsList">
+    <div data-selector="product-container"></div>
+  </ng-container>
+</ng-container>
