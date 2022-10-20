@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ProductsService } from '../../../services/products.service';
 
 @Component({
   selector: 'app-products-list',
@@ -8,4 +9,5 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductsComponent {
+  constructor(private _productsService: ProductsService) {}
 }
