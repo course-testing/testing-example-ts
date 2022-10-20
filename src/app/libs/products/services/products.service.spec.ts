@@ -4,26 +4,44 @@ import { ProductsService } from './products.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('ProductsService', () => {
-  let service: ProductsService;
-  let httpTestingController: HttpTestingController;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  const  given = async () => {
+    await TestBed.configureTestingModule({
       imports: [ HttpClientTestingModule ],
       providers: [
         ProductsService
       ]
     });
 
-    service = TestBed.inject(ProductsService);
-    httpTestingController = TestBed.inject(HttpTestingController);
-  });
+    return {
+      when: {
+        getProducts: () => TestBed.inject(ProductsService).getProducts(),
+      },
+      httpTestingController: TestBed.inject(HttpTestingController)
+    }
+  };
 
-  afterEach(() => {
-    httpTestingController.verify();
-  });
+  // let service: ProductsService;
+  // let httpTestingController: HttpTestingController;
 
-  it('should return product list', () => {
+  // beforeEach(() => {
+  //   TestBed.configureTestingModule({
+  //     imports: [ HttpClientTestingModule ],
+  //     providers: [
+  //       ProductsService
+  //     ]
+  //   });
+  //
+  //   service = TestBed.inject(ProductsService);
+  //   httpTestingController = TestBed.inject(HttpTestingController);
+  // });
+
+  // afterEach(() => {
+  //   httpTestingController.verify();
+  // });
+
+  it('should return product list', async () => {
+    const { when, httpTestingController } = await given();
+
     const expectedProductData: ProductModel[] = [{
       id: '__PRODUCT_1_ID__',
       title: '__PRODUCT_1_TITLE__',
@@ -54,7 +72,7 @@ describe('ProductsService', () => {
       }
     }];
 
-    service.getProducts().subscribe(products =>
+    when.getProducts().subscribe(products =>
       expect(products).toEqual(expectedProductData)
     );
 
@@ -85,6 +103,8 @@ describe('ProductsService', () => {
       }
     }];
     req.flush(response);
+
+    httpTestingController.verify();
   });
 
 });
