@@ -69,7 +69,21 @@ describe('ProductsComponent', () => {
     fixture.detectChanges();
 
     const title = fixture.debugElement.query(By.css(`[data-selector="product-title-__PRODUCT_ID_1__"]`));
+    const desc = fixture.debugElement.query(By.css(`[data-selector="product-description-__PRODUCT_ID_1__"]`));
+    const price = fixture.debugElement.query(By.css(`[data-selector="product-price-__PRODUCT_ID_1__"]`));
+    const allReviews = fixture.debugElement.query(By.css(`[data-selector="product-all-reviews-__PRODUCT_ID_1__"]`));
+    const cartButton = fixture.debugElement.query(By.css(`[data-selector="product-add-to-cart-button-__PRODUCT_ID_1__"]`));
+    const image = fixture.debugElement.query(By.css(`[data-selector="product-image-__PRODUCT_ID_1__"]`));
+    const rating = fixture.debugElement.query(By.css(`[data-selector="product-rating-__PRODUCT_ID_1__"]`));
+    const detailsButton = fixture.debugElement.query(By.css(`[data-selector="product-details-button-__PRODUCT_ID_1__"]`));
 
     expect(title.properties['innerText']).toContain("__PRODUCT_TITLE_1__");
+    expect(desc.properties['innerText']).toEqual('__PRODUCT_DESCRIPTION_1__');
+    expect(price.properties['innerText']).toEqual('123.56 PLN');
+    expect(allReviews.properties['innerText']).toEqual('All reviews: 234');
+    expect(cartButton.properties['innerText']).toEqual('Add to cart');
+    expect(rating.properties['innerText']).toEqual('5');
+    expect(image.properties['src']).toEqual('__PRODUCT_IMAGE_1__');
+    expect(detailsButton).toBeTruthy();
   });
 });
