@@ -31,25 +31,6 @@ describe('ProductsService', () => {
     }
   };
 
-  // let service: ProductsService;
-  // let httpTestingController: HttpTestingController;
-
-  // beforeEach(() => {
-  //   TestBed.configureTestingModule({
-  //     imports: [ HttpClientTestingModule ],
-  //     providers: [
-  //       ProductsService
-  //     ]
-  //   });
-  //
-  //   service = TestBed.inject(ProductsService);
-  //   httpTestingController = TestBed.inject(HttpTestingController);
-  // });
-
-  // afterEach(() => {
-  //   httpTestingController.verify();
-  // });
-
   it('should return product list', async () => {
     const response: ProductResponse[] = [{
       id: '__PRODUCT_1_ID__',
