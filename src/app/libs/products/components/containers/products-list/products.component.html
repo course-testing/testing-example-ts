@@ -1,5 +1,7 @@
 <ng-container *ngIf="products$ | async as productsList">
   <ng-container *ngFor="let product of productsList">
-    <div data-selector="product-container"></div>
+    <div data-selector="product-container">
+      <h5 [attr.data-selector]="'product-title-' + product.id">{{ product.title }}</h5>
+    </div>
   </ng-container>
 </ng-container>
