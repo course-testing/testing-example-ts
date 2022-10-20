@@ -64,4 +64,12 @@ describe('ProductsComponent', () => {
 
     expect(productsNodes.length).toEqual(2);
   });
+
+  it('should display product elements', () => {
+    fixture.detectChanges();
+
+    const title = fixture.debugElement.query(By.css(`[data-selector="product-title-__PRODUCT_ID_1__"]`));
+
+    expect(title.properties['innerText']).toContain("__PRODUCT_TITLE_1__");
+  });
 });
