@@ -16,6 +16,16 @@ describe('ProductsService', () => {
       when: {
         getProducts: () => TestBed.inject(ProductsService).getProducts(),
       },
+      then: {
+        expectUrl: (expectedUrl: string) => {
+          const httpTestingController = TestBed.inject(HttpTestingController);
+          const req = httpTestingController.expectOne(expectedUrl);
+          req.flush(response);
+          httpTestingController.verify();
+
+          return req;
+        }
+      },
       httpTestingController: TestBed.inject(HttpTestingController)
     }
   };
