@@ -6,10 +6,20 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { of } from 'rxjs';
 
+export class ProductListPage {
+  constructor(private _fixture: ComponentFixture<ProductsComponent>) {
+  }
+
+  get productWrapper() {
+    return this._fixture.debugElement.queryAll(By.css(`[data-selector="product-container"]`));
+  }
+}
+
 describe('ProductsComponent', () => {
   let component: ProductsComponent;
   let fixture: ComponentFixture<ProductsComponent>;
   let productsService: SpyObj<ProductsService>;
+  let productListPage: ProductListPage;
 
   beforeEach(() => {
     productsService = createSpyObj('ProductsService', ['getProducts']);
@@ -56,11 +66,12 @@ describe('ProductsComponent', () => {
     });
     fixture = TestBed.createComponent(ProductsComponent);
     component = fixture.componentInstance;
+    productListPage = new ProductListPage(fixture);
   });
 
   it('should display products',() => {
     fixture.detectChanges();
-    const productsNodes = fixture.debugElement.queryAll(By.css(`[data-selector="product-container"]`));
+    const productsNodes = productListPage.productWrapper;
 
     expect(productsNodes.length).toEqual(2);
   });
