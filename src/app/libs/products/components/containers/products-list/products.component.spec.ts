@@ -1,75 +1,80 @@
 import { ProductsComponent } from './products.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { of } from 'rxjs';
 import { ProductListPage } from './product-list.page-object';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
+import { ProductModel } from '../../../models/product.model';
 
 describe('ProductsComponent', () => {
-  let component: ProductsComponent;
-  let fixture: ComponentFixture<ProductsComponent>;
-  let productsService: SpyObj<ProductsService>;
-  let productListPage: ProductListPage;
-
-  beforeEach(() => {
-    productsService = createSpyObj('ProductsService', ['getProducts']);
-    productsService.getProducts.and.returnValue(of([
-      {
-        id: '__PRODUCT_ID_1__',
-        title: '__PRODUCT_TITLE_1__',
-        price: {
-          amount: 123.56,
-          currency: 'PLN',
-        },
-        description: '__PRODUCT_DESCRIPTION_1__',
-        category: '__PRODUCT_CATEGORY_1__',
-        image: '__PRODUCT_IMAGE_1__',
-        rating: {
-          rate: 5,
-          count: 234
-        }
-      }, {
-        id: '__PRODUCT_ID_2__',
-        title: '__PRODUCT_TITLE_2__',
-        price: {
-          amount: 67.89,
-          currency: 'USD',
-        },
-        description: '__PRODUCT_DESCRIPTION_2__',
-        category: '__PRODUCT_CATEGORY_2__',
-        image: '__PRODUCT_IMAGE_2__',
-        rating: {
-          rate: 4,
-          count: 56
-        }
-      }
-    ]));
-
-    TestBed.configureTestingModule({
+  const given = async (data: {
+    givenProducts: ProductModel[]
+  }) => {
+    await TestBed.configureTestingModule({
       declarations: [ ProductsComponent ],
       providers: [
         {
           provide: ProductsService,
-          useValue: productsService
-        }
+          useValue: {
+            getProducts: () => of(data.givenProducts)
+          }
+        },
       ]
-    });
-    fixture = TestBed.createComponent(ProductsComponent);
-    component = fixture.componentInstance;
-    productListPage = new ProductListPage(fixture);
-
+    }).compileComponents();
+    const fixture = TestBed.createComponent(ProductsComponent);
     fixture.detectChanges();
-  });
 
-  it('should display products',() => {
+    return {
+      productListPage: new ProductListPage(fixture)
+    }
+  };
+
+  const productModel = [
+    {
+      id: '__PRODUCT_ID_1__',
+      title: '__PRODUCT_TITLE_1__',
+      price: {
+        amount: 123.56,
+        currency: 'PLN',
+      },
+      description: '__PRODUCT_DESCRIPTION_1__',
+      category: '__PRODUCT_CATEGORY_1__',
+      image: '__PRODUCT_IMAGE_1__',
+      rating: {
+        rate: 5,
+        count: 234
+      }
+    }, {
+      id: '__PRODUCT_ID_2__',
+      title: '__PRODUCT_TITLE_2__',
+      price: {
+        amount: 67.89,
+        currency: 'USD',
+      },
+      description: '__PRODUCT_DESCRIPTION_2__',
+      category: '__PRODUCT_CATEGORY_2__',
+      image: '__PRODUCT_IMAGE_2__',
+      rating: {
+        rate: 4,
+        count: 56
+      }
+    }
+  ];
+
+  it('should display products',async () => {
+    const { productListPage } = await given({
+      givenProducts: productModel
+    });
     const productsNodes = productListPage.getProductWrapper();
 
     expect(productsNodes.length).toEqual(2);
   });
 
-  it('should display product elements', () => {
+  it('should display product elements', async() => {
+    const { productListPage } = await given({
+      givenProducts: productModel
+    });
+
     expect(productListPage.titleFor('__PRODUCT_ID_1__')).toContain("__PRODUCT_TITLE_1__");
     expect(productListPage.descriptionFor('__PRODUCT_ID_1__')).toEqual('__PRODUCT_DESCRIPTION_1__');
     expect(productListPage.priceFor('__PRODUCT_ID_1__')).toEqual('123.56 PLN');
