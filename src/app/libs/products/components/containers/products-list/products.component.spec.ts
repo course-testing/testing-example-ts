@@ -1,60 +1,11 @@
 import { ProductsComponent } from './products.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
+import { of } from 'rxjs';
+import { ProductListPage } from './product-list.page-object';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { of } from 'rxjs';
-
-export class ProductListPage {
-  constructor(private _fixture: ComponentFixture<ProductsComponent>) {
-  }
-
-  getProductWrapper(): DebugElement[] {
-    return this._fixture.debugElement.queryAll(By.css(`[data-selector="product-container"]`));
-  }
-
-  titleFor(productId: string): string {
-    return this._getText(
-      this._fixture.debugElement.query(By.css(`[data-selector="product-title-${productId}"]`))
-    );
-  }
-
-  descriptionFor(productId: string): string {
-    return this._getText(this._fixture.debugElement.query(By.css(`[data-selector="product-description-${productId}"]`)));
-  }
-
-  priceFor(productId: string): string {
-    return this._getText(this._fixture.debugElement.query(By.css(`[data-selector="product-price-${productId}"]`)));
-  }
-
-  allReviewsFor(productId: string): string {
-    return this._getText(this._fixture.debugElement.query(By.css(`[data-selector="product-all-reviews-${productId}"]`)));
-  }
-
-  cartButtonFor(productId: string): string {
-    return this._getText(this._fixture.debugElement.query(By.css(`[data-selector="product-add-to-cart-button-${productId}"]`)));
-  }
-
-  imageFor(productId: string): string {
-    const imageElement = this._fixture.debugElement.query(By.css(`[data-selector="product-image-${productId}"]`));
-    return imageElement && imageElement.properties['src'] || '';
-  }
-
-  ratingFor(productId: string): string {
-    return this._getText(this._fixture.debugElement.query(By.css(`[data-selector="product-rating-${productId}"]`)));
-  }
-
-  hasDetailsButtonFor(productId: string): boolean {
-    const button = this._fixture.debugElement.query(By.css(`[data-selector="product-details-button-${productId}"]`));
-    return Boolean(button);
-  }
-
-  private _getText(element?: DebugElement): string {
-    return element && element.properties['innerText'] || '';
-  }
-}
 
 describe('ProductsComponent', () => {
   let component: ProductsComponent;
@@ -108,18 +59,17 @@ describe('ProductsComponent', () => {
     fixture = TestBed.createComponent(ProductsComponent);
     component = fixture.componentInstance;
     productListPage = new ProductListPage(fixture);
+
+    fixture.detectChanges();
   });
 
   it('should display products',() => {
-    fixture.detectChanges();
     const productsNodes = productListPage.getProductWrapper();
 
     expect(productsNodes.length).toEqual(2);
   });
 
   it('should display product elements', () => {
-    fixture.detectChanges();
-
     expect(productListPage.titleFor('__PRODUCT_ID_1__')).toContain("__PRODUCT_TITLE_1__");
     expect(productListPage.descriptionFor('__PRODUCT_ID_1__')).toEqual('__PRODUCT_DESCRIPTION_1__');
     expect(productListPage.priceFor('__PRODUCT_ID_1__')).toEqual('123.56 PLN');
