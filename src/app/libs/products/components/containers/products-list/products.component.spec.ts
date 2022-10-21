@@ -1,5 +1,6 @@
 import { ProductsComponent } from './products.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ProductsService } from '../../../services/products.service';
 import SpyObj = jasmine.SpyObj;
@@ -10,8 +11,18 @@ export class ProductListPage {
   constructor(private _fixture: ComponentFixture<ProductsComponent>) {
   }
 
-  get productWrapper() {
+  getProductWrapper(): DebugElement[] {
     return this._fixture.debugElement.queryAll(By.css(`[data-selector="product-container"]`));
+  }
+
+  titleFor(productId: string): string {
+    return this._getText(
+      this._fixture.debugElement.query(By.css(`[data-selector="product-title-${productId}"]`))
+    );
+  }
+
+  private _getText(element?: DebugElement): string {
+    return element && element.properties['innerText'] || '';
   }
 }
 
@@ -71,7 +82,7 @@ describe('ProductsComponent', () => {
 
   it('should display products',() => {
     fixture.detectChanges();
-    const productsNodes = productListPage.productWrapper;
+    const productsNodes = productListPage.getProductWrapper();
 
     expect(productsNodes.length).toEqual(2);
   });
@@ -88,7 +99,7 @@ describe('ProductsComponent', () => {
     const rating = fixture.debugElement.query(By.css(`[data-selector="product-rating-__PRODUCT_ID_1__"]`));
     const detailsButton = fixture.debugElement.query(By.css(`[data-selector="product-details-button-__PRODUCT_ID_1__"]`));
 
-    expect(title.properties['innerText']).toContain("__PRODUCT_TITLE_1__");
+    expect(productListPage.titleFor('__PRODUCT_ID_1__')).toContain("__PRODUCT_TITLE_1__");
     expect(desc.properties['innerText']).toEqual('__PRODUCT_DESCRIPTION_1__');
     expect(price.properties['innerText']).toEqual('123.56 PLN');
     expect(allReviews.properties['innerText']).toEqual('All reviews: 234');
