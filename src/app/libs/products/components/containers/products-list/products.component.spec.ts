@@ -1,6 +1,5 @@
 import { ProductsComponent } from './products.component';
 import { TestBed } from '@angular/core/testing';
-import { Component } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { of } from 'rxjs';
 import { ProductListPage } from './product-list.page-object';
