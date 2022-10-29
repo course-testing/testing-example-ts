@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { ProductsComponentHarness } from './products-component.harness';
 import { ProductModel } from '../../../models/product.model';
 import { ProductsService } from '../../../services/products.service';
+import { ANALYTICS_SERVICE } from '../../../services/analytics.service';
 
 describe('ProductsComponent', () => {
   const  given = async (data: {
@@ -19,7 +20,13 @@ describe('ProductsComponent', () => {
           useValue: {
             getProducts: () => of(data.givenProducts)
           }
-        }
+        },
+        {
+          provide: ANALYTICS_SERVICE,
+          useValue: {
+            add: () => of(void 0),
+          }
+        },
       ]
     }).compileComponents();
     const fixture = TestBed.createComponent(TestPage);
@@ -36,6 +43,8 @@ describe('ProductsComponent', () => {
       isRatingPresent: async (productId: string) => (await componentHarness.getElement('product-rating-' + productId)) !== undefined,
       isDetailsButtonPresent: async (productId: string) => (await componentHarness.getElement('product-details-button-' + productId)) !== undefined,
       isImagePresent: async (productId: string) => (await componentHarness.getElement('product-image-' + productId)),
+      clickDetailsButton: async (productId: string) => (await componentHarness.getElement('product-details-button-' + productId))?.click(),
+      analyticServiceAddSpy: spyOn(TestBed.inject(ANALYTICS_SERVICE), 'add'),
     }
 
   };
@@ -118,6 +127,39 @@ describe('ProductsComponent', () => {
     expect(detailsButton).toEqual(true);
     expect(rating).toBeTruthy();
     expect(image).toBeTruthy();
+  });
+
+  it('should sent analytics when details button clicked', async () => {
+    const { clickDetailsButton, analyticServiceAddSpy } = await given({
+      givenProducts: [
+        {
+          id: '__PRODUCT_ID_1__',
+          title: '__PRODUCT_TITLE_1__',
+          price: {
+            amount: 123.56,
+            currency: 'PLN',
+          },
+          description: '__PRODUCT_DESCRIPTION_1__',
+          category: '__PRODUCT_CATEGORY_1__',
+          image: '__PRODUCT_IMAGE_1__',
+          rating: {
+            rate: 5,
+            count: 234
+          }
+        }
+      ]
+    });
+
+    await clickDetailsButton('__PRODUCT_ID_1__');
+
+    expect(analyticServiceAddSpy).toHaveBeenCalledWith({
+      type: 'click',
+      data: {
+        elementName: 'details-button',
+        partnerId: '732793f92e4840c240adb0830b2332d5',
+        timestamp: '20:43:06 GMT+0200'
+      }
+    });
   });
 });
 
