@@ -4,6 +4,7 @@ import { ProductsService } from '../../../services/products.service';
 import { of } from 'rxjs';
 import { ProductListPage } from './product-list.page-object';
 import { ProductModel } from '../../../models/product.model';
+import { ANALYTICS_SERVICE } from '../../../services/analytics.service';
 
 describe('ProductsComponent', () => {
   const given = async (data: {
@@ -18,13 +19,20 @@ describe('ProductsComponent', () => {
             getProducts: () => of(data.givenProducts)
           }
         },
+        {
+          provide: ANALYTICS_SERVICE,
+          useValue: {
+            add: () => of(void 0),
+          }
+        },
       ]
     }).compileComponents();
     const fixture = TestBed.createComponent(ProductsComponent);
     fixture.detectChanges();
 
     return {
-      productListPage: new ProductListPage(fixture)
+      productListPage: new ProductListPage(fixture),
+      analyticServiceAddSpy: spyOn(TestBed.inject(ANALYTICS_SERVICE), 'add'),
     }
   };
 
@@ -82,5 +90,38 @@ describe('ProductsComponent', () => {
     expect(productListPage.ratingFor('__PRODUCT_ID_1__')).toEqual('5');
     expect(productListPage.imageFor('__PRODUCT_ID_1__')).toEqual('__PRODUCT_IMAGE_1__');
     expect(productListPage.hasDetailsButtonFor('__PRODUCT_ID_1__')).toBeTrue();
+  });
+
+  it('should sent analytics when details button clicked', async () => {
+    const { productListPage, analyticServiceAddSpy } = await given({
+      givenProducts: [
+        {
+          id: '__PRODUCT_ID_1__',
+          title: '__PRODUCT_TITLE_1__',
+          price: {
+            amount: 123.56,
+            currency: 'PLN',
+          },
+          description: '__PRODUCT_DESCRIPTION_1__',
+          category: '__PRODUCT_CATEGORY_1__',
+          image: '__PRODUCT_IMAGE_1__',
+          rating: {
+            rate: 5,
+            count: 234
+          }
+        }
+      ]
+    });
+
+    productListPage.clickDetailsButton('__PRODUCT_ID_1__');
+
+    expect(analyticServiceAddSpy).toHaveBeenCalledWith({
+      type: 'click',
+      data: {
+        elementName: 'details-button',
+        partnerId: '732793f92e4840c240adb0830b2332d5',
+        timestamp: '20:43:06 GMT+0200'
+      }
+    });
   });
 });
