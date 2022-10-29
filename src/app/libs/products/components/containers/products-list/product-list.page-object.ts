@@ -47,6 +47,11 @@ export class ProductListPage {
     return Boolean(button);
   }
 
+  clickDetailsButton(productId: string): void {
+    const button = this._fixture.debugElement.query(By.css(`[data-selector="product-details-button-${productId}"]`));
+    button.triggerEventHandler('click', {});
+  }
+
   private _getText(element?: DebugElement): string {
     return element && element.properties['innerText'] || '';
   }
