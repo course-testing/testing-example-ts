@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, Inject, ViewEncapsulation } from '@
 import { ProductsService } from '../../../services/products/products.service';
 import { ProductModel } from '../../../models/product.model';
 import { Observable, switchMap, take } from 'rxjs';
-import { ANALYTICS_SERVICE, AnalyticsService } from '../../../services/analytics/analytics.service';
-import { APPLICATION_CONTEXT, ApplicationContext } from '../../../services/context/application-context';
+import { ANALYTICS_SERVICE, AnalyticsService } from '../../../../shared/services/analytics/analytics.service';
+import { APPLICATION_CONTEXT, ApplicationContext } from '../../../../shared/services/context/application-context';
 import { ApplicationContextModel } from '../../../models/application-context.model';
 import { CLOCK, Clock } from '../../../../shared/services/clock/clock';
 

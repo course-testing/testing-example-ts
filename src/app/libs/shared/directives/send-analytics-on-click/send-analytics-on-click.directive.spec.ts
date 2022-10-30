@@ -4,8 +4,8 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { of } from 'rxjs';
 import { SendAnalyticsDirectivesModule } from './send-analytics-directives.module';
 import { TestPageComponentHarness } from './test-page-component.harness';
-import { ANALYTICS_SERVICE } from '../../../products/services/analytics/analytics.service';
-import { APPLICATION_CONTEXT } from '../../../products/services/context/application-context';
+import { ANALYTICS_SERVICE } from '../../services/analytics/analytics.service';
+import { APPLICATION_CONTEXT } from '../../services/context/application-context';
 import { CLOCK } from '../../services/clock/clock';
 
 @Component({
