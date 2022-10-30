@@ -124,4 +124,37 @@ describe('ProductsComponent', () => {
       }
     });
   });
+
+  it('should sent analytics when add to cart button clicked', async () => {
+    const { productListPage, analyticServiceAddSpy } = await given({
+      givenProducts: [
+        {
+          id: '__PRODUCT_ID_1__',
+          title: '__PRODUCT_TITLE_1__',
+          price: {
+            amount: 123.56,
+            currency: 'PLN',
+          },
+          description: '__PRODUCT_DESCRIPTION_1__',
+          category: '__PRODUCT_CATEGORY_1__',
+          image: '__PRODUCT_IMAGE_1__',
+          rating: {
+            rate: 5,
+            count: 234
+          }
+        }
+      ]
+    });
+
+    productListPage.clickAddToCartButton('__PRODUCT_ID_1__');
+
+    expect(analyticServiceAddSpy).toHaveBeenCalledWith({
+      type: 'click',
+      data: {
+        elementName: 'add-to-cart-button',
+        partnerId: '732793f92e4840c240adb0830b2332d5',
+        timestamp: '20:43:06 GMT+0200'
+      }
+    });
+  });
 });
