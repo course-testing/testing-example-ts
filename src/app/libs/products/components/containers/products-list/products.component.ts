@@ -5,7 +5,7 @@ import { Observable, switchMap, take } from 'rxjs';
 import { ANALYTICS_SERVICE, AnalyticsService } from '../../../services/analytics/analytics.service';
 import { APPLICATION_CONTEXT, ApplicationContext } from '../../../services/context/application-context';
 import { ApplicationContextModel } from '../../../models/application-context.model';
-import { CLOCK, Clock } from '../../../../shared/clock/clock';
+import { CLOCK, Clock } from '../../../../shared/services/clock/clock';
 
 @Component({
   selector: 'app-products-list',

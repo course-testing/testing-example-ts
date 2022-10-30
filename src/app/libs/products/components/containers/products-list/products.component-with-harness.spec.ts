@@ -8,13 +8,17 @@ import { ProductModel } from '../../../models/product.model';
 import { ProductsService } from '../../../services/products/products.service';
 import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service';
 import { APPLICATION_CONTEXT } from '../../../services/context/application-context';
-import { CLOCK } from '../../../../shared/clock/clock';
+import { CLOCK } from '../../../../shared/services/clock/clock';
+import {
+  SendAnalyticsDirectivesModule
+} from '../../../../shared/directives/send-analytics-on-click/send-analytics-directives.module';
 
 describe('ProductsComponent [Harness]', () => {
   const  given = async (data: {
     givenProducts: ProductModel[]
   }) => {
     await TestBed.configureTestingModule({
+      imports: [SendAnalyticsDirectivesModule],
       declarations: [ TestPage, ProductsComponent ],
       providers: [
         {
