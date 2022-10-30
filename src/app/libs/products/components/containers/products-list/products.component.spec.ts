@@ -7,17 +7,14 @@ import { ProductModel } from '../../../models/product.model';
 import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service';
 import { APPLICATION_CONTEXT } from '../../../services/context/application-context';
 import { CLOCK } from '../../../../shared/services/clock/clock';
-import {
-  SendAnalyticsDirectivesModule
-} from '../../../../shared/directives/send-analytics-on-click/send-analytics-directives.module';
+import { ProductsComponentModule } from './products.component-module';
 
 describe('ProductsComponent', () => {
   const given = async (data: {
     givenProducts: ProductModel[]
   }) => {
     await TestBed.configureTestingModule({
-      imports: [SendAnalyticsDirectivesModule],
-      declarations: [ ProductsComponent ],
+      imports: [ProductsComponentModule],
       providers: [
         {
           provide: ProductsService,
