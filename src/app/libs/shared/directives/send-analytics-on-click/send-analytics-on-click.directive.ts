@@ -3,7 +3,7 @@ import { switchMap, take } from 'rxjs/operators';
 import { ANALYTICS_SERVICE, AnalyticsService } from '../../services/analytics/analytics.service';
 import { APPLICATION_CONTEXT, ApplicationContext } from '../../services/context/application-context';
 import { CLOCK, Clock } from '../../services/clock/clock';
-import { ApplicationContextModel } from '../../../products/models/application-context.model';
+import { ApplicationContextModel } from '../../models/application-context.model';
 
 
 @Directive({

@@ -1,4 +1,4 @@
-import { ComponentHarness, HarnessQuery, parallel, TestElement } from '@angular/cdk/testing';
+import { ComponentHarness, TestElement } from '@angular/cdk/testing';
 
 export class TestPageComponentHarness extends ComponentHarness {
   static hostSelector = 'form';

@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { ApplicationContext } from './application-context';
-import { ApplicationContextModel } from '../../../products/models/application-context.model';
+import { ApplicationContextModel } from '../../models/application-context.model';
 
 @Injectable()
 export class ApplicationContextService implements ApplicationContext {
