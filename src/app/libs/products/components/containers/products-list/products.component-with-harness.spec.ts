@@ -5,8 +5,8 @@ import { ProductsComponent } from './products.component';
 import { of } from 'rxjs';
 import { ProductsComponentHarness } from './products-component.harness';
 import { ProductModel } from '../../../models/product.model';
-import { ProductsService } from '../../../services/products.service';
-import { ANALYTICS_SERVICE } from '../../../services/analytics.service';
+import { ProductsService } from '../../../services/products/products.service';
+import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service';
 
 describe('ProductsComponent', () => {
   const  given = async (data: {
