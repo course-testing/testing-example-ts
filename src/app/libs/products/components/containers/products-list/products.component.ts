@@ -32,7 +32,7 @@ export class ProductsComponent {
               data: {
                 elementName,
                 partnerId: '__PARTNER_ID__',
-                timestamp: '20:43:06 GMT+0200'
+                timestamp: new Date().toTimeString()
               },
             })
           ),
