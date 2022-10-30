@@ -6,8 +6,8 @@
       <h6 [attr.data-selector]="'product-price-' + product.id">{{ product.price.amount }} {{ product.price.currency }}</h6>
       <span [attr.data-selector]="'product-all-reviews-' + product.id">All reviews: {{ product.rating.count }}</span>
       <span [attr.data-selector]="'product-rating-' + product.id">{{ product.rating.rate }}</span>
-      <a [attr.data-selector]="'product-details-button-' + product.id" (click)="sendAnalytics()">Details</a>
-      <button [attr.data-selector]="'product-add-to-cart-button-' + product.id" type="button" (click)="sendAnalytics()">Add to cart</button>
+      <a [attr.data-selector]="'product-details-button-' + product.id" (click)="sendAnalytics('details-button')">Details</a>
+      <button [attr.data-selector]="'product-add-to-cart-button-' + product.id" type="button" (click)="sendAnalytics('add-to-cart-button')">Add to cart</button>
       <img [src]="product.image" [attr.data-selector]="'product-image-' + product.id"/>
     </div>
   </ng-container>

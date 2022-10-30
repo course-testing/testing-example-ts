@@ -1,10 +1,10 @@
 import { ProductsComponent } from './products.component';
 import { TestBed } from '@angular/core/testing';
-import { ProductsService } from '../../../services/products.service';
+import { ProductsService } from '../../../services/products/products.service';
 import { of } from 'rxjs';
 import { ProductListPage } from './product-list.page-object';
 import { ProductModel } from '../../../models/product.model';
-import { ANALYTICS_SERVICE } from '../../../services/analytics.service';
+import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service';
 
 describe('ProductsComponent', () => {
   const given = async (data: {

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, ViewEncapsulation } from '@angular/core';
-import { ProductsService } from '../../../services/products.service';
+import { ProductsService } from '../../../services/products/products.service';
 import { ProductModel } from '../../../models/product.model';
 import { Observable } from 'rxjs';
-import { ANALYTICS_SERVICE, AnalyticsService } from '../../../services/analytics.service';
+import { ANALYTICS_SERVICE, AnalyticsService } from '../../../services/analytics/analytics.service';
 
 @Component({
   selector: 'app-products-list',
@@ -16,11 +16,11 @@ export class ProductsComponent {
 
   constructor(private _productsService: ProductsService, @Inject(ANALYTICS_SERVICE) private _addsAnalytics: AnalyticsService) {}
 
-  sendAnalytics() {
+  sendAnalytics(elementName: string) {
     this._addsAnalytics.add({
       type: 'click',
       data: {
-        elementName: 'details-button',
+        elementName,
         partnerId: '732793f92e4840c240adb0830b2332d5',
         timestamp: '20:43:06 GMT+0200'
       }
