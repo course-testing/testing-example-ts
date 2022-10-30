@@ -5,6 +5,7 @@ import { Observable, switchMap, take } from 'rxjs';
 import { ANALYTICS_SERVICE, AnalyticsService } from '../../../services/analytics/analytics.service';
 import { APPLICATION_CONTEXT, ApplicationContext } from '../../../services/context/application-context';
 import { ApplicationContextModel } from '../../../models/application-context.model';
+import { CLOCK, Clock } from '../../../../shared/clock/clock';
 
 @Component({
   selector: 'app-products-list',
@@ -20,6 +21,7 @@ export class ProductsComponent {
     private _productsService: ProductsService,
     @Inject(ANALYTICS_SERVICE) private _addsAnalytics: AnalyticsService,
     @Inject(APPLICATION_CONTEXT) private _getsContextData: ApplicationContext,
+    @Inject(CLOCK) private _currentTime: Clock,
   ) {}
 
   sendAnalytics(elementName: string) {
@@ -32,7 +34,7 @@ export class ProductsComponent {
               data: {
                 elementName,
                 partnerId: '__PARTNER_ID__',
-                timestamp: new Date().toTimeString()
+                timestamp: this._currentTime.toTimeString()
               },
             })
           ),

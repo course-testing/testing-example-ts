@@ -6,6 +6,7 @@ import { ProductListPage } from './product-list.page-object';
 import { ProductModel } from '../../../models/product.model';
 import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service';
 import { APPLICATION_CONTEXT } from '../../../services/context/application-context';
+import { CLOCK } from '../../../../shared/clock/clock';
 
 describe('ProductsComponent', () => {
   const given = async (data: {
@@ -35,6 +36,12 @@ describe('ProductsComponent', () => {
               }),
           },
         },
+        {
+          provide: CLOCK,
+          useValue: {
+            toTimeString: () => ('20:43:06 GMT+0200'),
+          }
+        }
       ]
     }).compileComponents();
     const fixture = TestBed.createComponent(ProductsComponent);
