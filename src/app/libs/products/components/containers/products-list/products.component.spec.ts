@@ -5,6 +5,7 @@ import { of } from 'rxjs';
 import { ProductListPage } from './product-list.page-object';
 import { ProductModel } from '../../../models/product.model';
 import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service';
+import { APPLICATION_CONTEXT } from '../../../services/context/application-context';
 
 describe('ProductsComponent', () => {
   const given = async (data: {
@@ -24,6 +25,15 @@ describe('ProductsComponent', () => {
           useValue: {
             add: () => of(void 0),
           }
+        },
+        {
+          provide: APPLICATION_CONTEXT,
+          useValue: {
+            get: () =>
+              of({
+                partnerId: '__PARTNER_ID__',
+              }),
+          },
         },
       ]
     }).compileComponents();
@@ -119,7 +129,7 @@ describe('ProductsComponent', () => {
       type: 'click',
       data: {
         elementName: 'details-button',
-        partnerId: '732793f92e4840c240adb0830b2332d5',
+        partnerId: '__PARTNER_ID__',
         timestamp: '20:43:06 GMT+0200'
       }
     });
@@ -152,7 +162,7 @@ describe('ProductsComponent', () => {
       type: 'click',
       data: {
         elementName: 'add-to-cart-button',
-        partnerId: '732793f92e4840c240adb0830b2332d5',
+        partnerId: '__PARTNER_ID__',
         timestamp: '20:43:06 GMT+0200'
       }
     });
