@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { of } from 'rxjs';
 import { SendAnalyticsDirectivesModule } from './send-analytics-directives.module';
 import { TestPageComponentHarness } from './test-page-component.harness';
 import { ANALYTICS_SERVICE } from '../../services/analytics/analytics.service';
-import { APPLICATION_CONTEXT } from '../../services/context/application-context';
-import { CLOCK } from '../../services/clock/clock';
+import { ANALYTICS_SERVICE_TEST_PROVIDER } from '../../services/analytics/analytics-service-test.provider';
+import { APPLICATION_CONTEXT_TEST_PROVIDER } from '../../services/context/application-context-test.provider';
+import { CLOCK_TEST_PROVIDER } from '../../services/clock/clock-test.provider';
 
 @Component({
   template: `<form>
@@ -21,27 +21,9 @@ describe('SendAnalyticsOnClickDirective', () => {
       imports: [SendAnalyticsDirectivesModule],
       declarations: [TestComponent],
       providers: [
-        {
-          provide: ANALYTICS_SERVICE,
-          useValue: {
-            add: () => of(void 0),
-          },
-        },
-        {
-          provide: APPLICATION_CONTEXT,
-          useValue: {
-            get: () =>
-              of({
-                partnerId: '__PARTNER_ID__',
-              }),
-          },
-        },
-        {
-          provide: CLOCK,
-          useValue: {
-            toTimeString: () => ('20:43:06 GMT+0200'),
-          }
-        }
+        ANALYTICS_SERVICE_TEST_PROVIDER,
+        APPLICATION_CONTEXT_TEST_PROVIDER,
+        CLOCK_TEST_PROVIDER,
       ],
     }).compileComponents();
 

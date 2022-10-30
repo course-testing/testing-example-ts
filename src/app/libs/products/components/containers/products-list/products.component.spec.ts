@@ -5,9 +5,12 @@ import { of } from 'rxjs';
 import { ProductListPage } from './product-list.page-object';
 import { ProductModel } from '../../../models/product.model';
 import { ANALYTICS_SERVICE } from '../../../../shared/services/analytics/analytics.service';
-import { APPLICATION_CONTEXT } from '../../../../shared/services/context/application-context';
-import { CLOCK } from '../../../../shared/services/clock/clock';
 import { ProductsComponentModule } from './products.component-module';
+import {
+  APPLICATION_CONTEXT_TEST_PROVIDER
+} from '../../../../shared/services/context/application-context-test.provider';
+import { ANALYTICS_SERVICE_TEST_PROVIDER } from '../../../../shared/services/analytics/analytics-service-test.provider';
+import { CLOCK_TEST_PROVIDER } from '../../../../shared/services/clock/clock-test.provider';
 import objectContaining = jasmine.objectContaining;
 
 describe('ProductsComponent', () => {
@@ -23,27 +26,9 @@ describe('ProductsComponent', () => {
             getProducts: () => of(data.givenProducts)
           }
         },
-        {
-          provide: ANALYTICS_SERVICE,
-          useValue: {
-            add: () => of(void 0),
-          }
-        },
-        {
-          provide: APPLICATION_CONTEXT,
-          useValue: {
-            get: () =>
-              of({
-                partnerId: '__PARTNER_ID__',
-              }),
-          },
-        },
-        {
-          provide: CLOCK,
-          useValue: {
-            toTimeString: () => ('20:43:06 GMT+0200'),
-          }
-        }
+        ANALYTICS_SERVICE_TEST_PROVIDER,
+        APPLICATION_CONTEXT_TEST_PROVIDER,
+        CLOCK_TEST_PROVIDER,
       ]
     }).compileComponents();
     const fixture = TestBed.createComponent(ProductsComponent);
