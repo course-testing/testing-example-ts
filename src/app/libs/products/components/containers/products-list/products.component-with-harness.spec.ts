@@ -9,6 +9,7 @@ import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service
 import { APPLICATION_CONTEXT } from '../../../services/context/application-context';
 import { CLOCK } from '../../../../shared/services/clock/clock';
 import { ProductsComponentModule } from './products.component-module';
+import objectContaining = jasmine.objectContaining;
 
 describe('ProductsComponent [Harness]', () => {
   const  given = async (data: {
@@ -170,14 +171,11 @@ describe('ProductsComponent [Harness]', () => {
 
     await clickDetailsButton('__PRODUCT_ID_1__');
 
-    expect(analyticServiceAddSpy).toHaveBeenCalledWith({
-      type: 'click',
-      data: {
+    expect(analyticServiceAddSpy).toHaveBeenCalledWith(objectContaining({
+      data: objectContaining({
         elementName: 'details-button',
-        partnerId: '__PARTNER_ID__',
-        timestamp: '20:43:06 GMT+0200'
-      }
-    });
+      })
+    }));
   });
 });
 

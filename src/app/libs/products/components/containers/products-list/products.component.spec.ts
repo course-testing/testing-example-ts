@@ -8,6 +8,7 @@ import { ANALYTICS_SERVICE } from '../../../services/analytics/analytics.service
 import { APPLICATION_CONTEXT } from '../../../services/context/application-context';
 import { CLOCK } from '../../../../shared/services/clock/clock';
 import { ProductsComponentModule } from './products.component-module';
+import objectContaining = jasmine.objectContaining;
 
 describe('ProductsComponent', () => {
   const given = async (data: {
@@ -133,18 +134,15 @@ describe('ProductsComponent', () => {
 
     productListPage.clickDetailsButton('__PRODUCT_ID_1__');
 
-    expect(analyticServiceAddSpy).toHaveBeenCalledWith({
-      type: 'click',
-      data: {
+    expect(analyticServiceAddSpy).toHaveBeenCalledWith(objectContaining({
+      data: objectContaining({
         elementName: 'details-button',
-        partnerId: '__PARTNER_ID__',
-        timestamp: '20:43:06 GMT+0200'
-      }
-    });
+      })
+    }));
   });
 
   it('should sent analytics when add to cart button clicked', async () => {
-    const { productListPage, analyticServiceAddSpy } = await given({
+    const {productListPage, analyticServiceAddSpy} = await given({
       givenProducts: [
         {
           id: '__PRODUCT_ID_1__',
@@ -166,13 +164,10 @@ describe('ProductsComponent', () => {
 
     productListPage.clickAddToCartButton('__PRODUCT_ID_1__');
 
-    expect(analyticServiceAddSpy).toHaveBeenCalledWith({
-      type: 'click',
-      data: {
+    expect(analyticServiceAddSpy).toHaveBeenCalledWith(objectContaining({
+      data: objectContaining({
         elementName: 'add-to-cart-button',
-        partnerId: '__PARTNER_ID__',
-        timestamp: '20:43:06 GMT+0200'
-      }
-    });
+      })
+    }));
   });
 });
