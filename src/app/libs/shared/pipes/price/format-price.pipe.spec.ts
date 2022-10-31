@@ -17,4 +17,15 @@ describe('FormatPricePipe', () => {
 
     expect(formatterPrice).toEqual('123.56 zł');
   });
+
+  it('should format USD price', () => {
+    const { pipe } = given();
+
+    const formatterPrice = pipe.transform({
+      amount: 123.56,
+      currency: 'USD',
+    });
+
+    expect(formatterPrice).toEqual('$123.56');
+  });
 });
