@@ -32,7 +32,7 @@ describe('ProductsComponent', () => {
 
     return {
       productListPage: new ProductListPage(fixture),
-      analyticServiceAddSpy: spyOn(TestBed.inject(ANALYTICS_SERVICE), 'add'),
+      analyticServiceAddSpy: spyOn(TestBed.inject(ANALYTICS_SERVICE), 'add').and.callThrough(),
     }
   };
 
