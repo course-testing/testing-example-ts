@@ -23,23 +23,4 @@ export class ProductsComponent {
     @Inject(APPLICATION_CONTEXT) private _getsContextData: ApplicationContext,
     @Inject(CLOCK) private _currentTime: Clock,
   ) {}
-
-  sendAnalytics(elementName: string) {
-      this._getsContextData
-        .get()
-        .pipe(
-          switchMap((context: ApplicationContextModel) =>
-            this._addsAnalytics.add({
-              type: 'click',
-              data: {
-                elementName,
-                partnerId: '__PARTNER_ID__',
-                timestamp: this._currentTime.toTimeString()
-              },
-            })
-          ),
-          take(1)
-        )
-        .subscribe();
-  }
 }
