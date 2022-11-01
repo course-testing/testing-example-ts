@@ -88,7 +88,7 @@ describe('ProductsComponent', () => {
 
     expect(productListPage.titleFor('__PRODUCT_ID_1__')).toContain("__PRODUCT_TITLE_1__");
     expect(productListPage.descriptionFor('__PRODUCT_ID_1__')).toEqual('__PRODUCT_DESCRIPTION_1__');
-    expect(productListPage.priceFor('__PRODUCT_ID_1__')).toEqual('123.56 PLN');
+    expect(productListPage.priceFor('__PRODUCT_ID_1__')).toEqual('123.56 zł');
     expect(productListPage.allReviewsFor('__PRODUCT_ID_1__')).toEqual('All reviews: 234');
     expect(productListPage.cartButtonFor('__PRODUCT_ID_1__')).toEqual('Add to cart');
     expect(productListPage.ratingFor('__PRODUCT_ID_1__')).toEqual('5');
