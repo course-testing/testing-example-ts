@@ -125,7 +125,7 @@ describe('ProductsComponent [Harness]', () => {
 
     expect(title).toEqual('__PRODUCT_TITLE_1__');
     expect(desc).toEqual('__PRODUCT_DESCRIPTION_1__');
-    expect(price).toEqual('123.56 PLN');
+    expect(price).toEqual('123.56 zł');
     expect(allReviews).toEqual('All reviews: 234');
     expect(cartButton).toEqual('Add to cart');
     expect(detailsButton).toEqual(true);
