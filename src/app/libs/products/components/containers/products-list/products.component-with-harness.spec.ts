@@ -44,7 +44,7 @@ describe('ProductsComponent', () => {
       isDetailsButtonPresent: async (productId: string) => (await componentHarness.getElement('product-details-button-' + productId)) !== undefined,
       isImagePresent: async (productId: string) => (await componentHarness.getElement('product-image-' + productId)),
       clickDetailsButton: async (productId: string) => (await componentHarness.getElement('product-details-button-' + productId))?.click(),
-      analyticServiceAddSpy: spyOn(TestBed.inject(ANALYTICS_SERVICE), 'add'),
+      analyticServiceAddSpy: spyOn(TestBed.inject(ANALYTICS_SERVICE), 'add').and.callThrough(),
     }
 
   };
