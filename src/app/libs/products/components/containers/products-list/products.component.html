@@ -3,7 +3,7 @@
     <div data-selector="product-container">
       <h5 [attr.data-selector]="'product-title-' + product.id">{{ product.title }}</h5>
       <p [attr.data-selector]="'product-description-' + product.id" >{{ product.description }}</p>
-      <h6 [attr.data-selector]="'product-price-' + product.id">{{ product.price.amount }} {{ product.price.currency }}</h6>
+      <h6 [attr.data-selector]="'product-price-' + product.id">{{ product.price | formatPrice }}</h6>
       <span [attr.data-selector]="'product-all-reviews-' + product.id">All reviews: {{ product.rating.count }}</span>
       <span [attr.data-selector]="'product-rating-' + product.id">{{ product.rating.rate }}</span>
       <a [attr.data-selector]="'product-details-button-' + product.id" [appSendAnalyticsOnClick]="'details-button'">Details</a>
