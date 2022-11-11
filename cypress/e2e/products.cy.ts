@@ -7,6 +7,9 @@ describe('Product list', () => {
     return {
       productList,
       firstItemTitle: () => productList().first().find('[data-cy="product-title"]'),
+      firstItemAddToCartButton: () => productList().first().find('[data-cy="product-add-to-cart-button"]'),
+      firstItemPrice: () => productList().first().find('[data-cy="product-price"]'),
+      firstItemImage: () => productList().first().find('[data-cy="product-image"]'),
     };
   };
 
@@ -16,9 +19,11 @@ describe('Product list', () => {
   })
 
   it('should display product elements', () => {
-    const { firstItemTitle } = given();
+    const { firstItemTitle,firstItemAddToCartButton, firstItemImage, firstItemPrice } = given();
 
-    firstItemTitle()
-      .should('exist');
+    firstItemTitle().should('not.to.match', ':empty');
+    firstItemPrice().should('not.to.match', ':empty');
+    firstItemAddToCartButton().should('exist');
+    firstItemImage().should('exist');
   })
 })
