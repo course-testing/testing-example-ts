@@ -4,6 +4,6 @@ describe('Product list', () => {
   })
 
   it('should display products list', () => {
-    cy.get('[data-selector="product-container"]').should('have.length', 2)
+    cy.get('[data-selector="product-container"]').should('have.length', 20)
   })
 })
