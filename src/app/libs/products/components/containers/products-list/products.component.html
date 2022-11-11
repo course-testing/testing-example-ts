@@ -29,7 +29,10 @@
                     <span class="font-italic text-muted mb-0 small"
                           [attr.data-selector]="'product-all-reviews-' + product.id"
                     >All reviews: {{ product.rating.count }}</span>
-                    <span [attr.data-selector]="'product-rating-' + product.id">{{ product.rating.rate }}</span>
+                    <app-stars
+                      [rate]="product.rating.rate"
+                      [attr.data-selector]="'product-rating-' + product.id"
+                    ></app-stars>
                   </div>
                   <div class="d-flex flex-column mt-4">
                     <a
