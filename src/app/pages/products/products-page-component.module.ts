@@ -7,12 +7,14 @@ import {
 } from '../../libs/products/components/containers/products-list/products.component-module';
 import { ProductsService } from '../../libs/products/services/products/products.service';
 import { GoogleAnalyticsServiceModule } from '../../libs/shared/services/analytics/google-analytics-service.module';
+import { ApplicationContextServiceModule } from '../../libs/shared/services/context/application-context-service.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ProductsComponentModule,
     GoogleAnalyticsServiceModule,
+    ApplicationContextServiceModule,
     RouterModule.forChild([
     {
       path: '',
