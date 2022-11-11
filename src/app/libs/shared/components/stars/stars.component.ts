@@ -15,7 +15,7 @@ export class StarsComponent {
 
   @Input()
   set rate(rate: number) {
-    this.rateValue = Math.min(rate, this.MAX_RATE);
+    this.rateValue = Math.max(0, Math.min(rate, this.MAX_RATE));
     this.filledStars = Math.min(parseInt(String(this.rateValue)), this.MAX_RATE);
     this.emptyStars = this.MAX_RATE - this.filledStars;
   }
