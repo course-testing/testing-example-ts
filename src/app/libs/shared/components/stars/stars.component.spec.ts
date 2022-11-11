@@ -21,15 +21,28 @@ describe('StarsComponent', () => {
     }
   };
 
-  it('should display rating as stars',async () => {
-    const { starsPageObject } = await given({ rate: 1 });
+  [
+    {
+      givenData: {
+        rate: 1
+      },
+      thanData: {
+        successStarQuantity: 1,
+        grayStarQuantity: 4,
+        rate: '1'
+      }
+    }
+  ].forEach(({ givenData, thanData}) => {
+    it('should display rating as stars',async () => {
+      const { starsPageObject } = await given({ rate: givenData.rate });
 
-    const successStars = starsPageObject.successStars();
-    const grayStars = starsPageObject.grayStars();
-    const rate = starsPageObject.getRate();
+      const successStars = starsPageObject.successStars();
+      const grayStars = starsPageObject.grayStars();
+      const rate = starsPageObject.getRate();
 
-    expect(successStars.length).toEqual(1);
-    expect(grayStars.length).toEqual(4);
-    expect(rate).toEqual('1');
+      expect(successStars.length).toEqual(thanData.successStarQuantity);
+      expect(grayStars.length).toEqual(thanData.grayStarQuantity);
+      expect(rate).toEqual(thanData.rate);
+    });
   });
 });
