@@ -24,6 +24,16 @@ describe('StarsComponent', () => {
   [
     {
       givenData: {
+        rate: 0
+      },
+      thanData: {
+        successStarQuantity: 0,
+        grayStarQuantity: 5,
+        rate: '0'
+      }
+    },
+    {
+      givenData: {
         rate: 1
       },
       thanData: {
@@ -31,9 +41,89 @@ describe('StarsComponent', () => {
         grayStarQuantity: 4,
         rate: '1'
       }
+    },
+    {
+      givenData: {
+        rate: 2
+      },
+      thanData: {
+        successStarQuantity: 2,
+        grayStarQuantity: 3,
+        rate: '2'
+      }
+    },
+    {
+      givenData: {
+        rate: 3
+      },
+      thanData: {
+        successStarQuantity: 3,
+        grayStarQuantity: 2,
+        rate: '3'
+      }
+    },
+    {
+      givenData: {
+        rate: 4
+      },
+      thanData: {
+        successStarQuantity: 4,
+        grayStarQuantity: 1,
+        rate: '4'
+      }
+    },
+    {
+      givenData: {
+        rate: 5
+      },
+      thanData: {
+        successStarQuantity: 5,
+        grayStarQuantity: 0,
+        rate: '5'
+      }
+    },
+    {
+      givenData: {
+        rate: 2.6
+      },
+      thanData: {
+        successStarQuantity: 2,
+        grayStarQuantity: 3,
+        rate: '2.6'
+      }
+    },
+    {
+      givenData: {
+        rate: 4.1
+      },
+      thanData: {
+        successStarQuantity: 4,
+        grayStarQuantity: 1,
+        rate: '4.1'
+      }
+    },
+    {
+      givenData: {
+        rate: 10
+      },
+      thanData: {
+        successStarQuantity: 5,
+        grayStarQuantity: 0,
+        rate: '5'
+      }
+    },
+    {
+      givenData: {
+        rate: -10
+      },
+      thanData: {
+        successStarQuantity: 0,
+        grayStarQuantity: 5,
+        rate: '0'
+      }
     }
   ].forEach(({ givenData, thanData}) => {
-    it('should display rating as stars',async () => {
+    it(`should display rating as stars for rate ${givenData.rate}`,async () => {
       const { starsPageObject } = await given({ rate: givenData.rate });
 
       const successStars = starsPageObject.successStars();
