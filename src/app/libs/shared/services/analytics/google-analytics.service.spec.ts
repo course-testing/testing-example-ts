@@ -3,23 +3,22 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { AnalyticsDto } from './analytics.dto';
 import { GoogleAnalyticsService } from './google-analytics.service';
+import { GoogleAnalyticsServiceModule } from './google-analytics-service.module';
+import { ANALYTICS_SERVICE, AnalyticsService } from './analytics.service';
 
 describe('GoogleAnalyticsService', () => {
-  let service: GoogleAnalyticsService;
+  let service: AnalyticsService;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ],
-      providers: [
-        GoogleAnalyticsService
-      ]
+      imports: [ HttpClientTestingModule, GoogleAnalyticsServiceModule ],
     });
 
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(GoogleAnalyticsService);
+    service = TestBed.inject(ANALYTICS_SERVICE);
   });
 
   afterEach(() => {
