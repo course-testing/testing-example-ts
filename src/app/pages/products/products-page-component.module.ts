@@ -6,11 +6,13 @@ import {
   ProductsComponentModule
 } from '../../libs/products/components/containers/products-list/products.component-module';
 import { ProductsService } from '../../libs/products/services/products/products.service';
+import { GoogleAnalyticsServiceModule } from '../../libs/shared/services/analytics/google-analytics-service.module';
 
 @NgModule({
   imports: [
     CommonModule,
     ProductsComponentModule,
+    GoogleAnalyticsServiceModule,
     RouterModule.forChild([
     {
       path: '',
