@@ -1,14 +1,59 @@
-<ng-container *ngIf="products$ | async as productsList">
-  <ng-container *ngFor="let product of productsList">
-    <div data-selector="product-container">
-      <h5 [attr.data-selector]="'product-title-' + product.id" [attr.data-cy]="'product-title'">{{ product.title }}</h5>
-      <p [attr.data-selector]="'product-description-' + product.id" >{{ product.description }}</p>
-      <h6 [attr.data-selector]="'product-price-' + product.id" [attr.data-cy]="'product-price'">{{ product.price | formatPrice }}</h6>
-      <span [attr.data-selector]="'product-all-reviews-' + product.id">All reviews: {{ product.rating.count }}</span>
-      <span [attr.data-selector]="'product-rating-' + product.id">{{ product.rating.rate }}</span>
-      <a [attr.data-selector]="'product-details-button-' + product.id" [appSendAnalyticsOnClick]="'details-button'">Details</a>
-      <button [attr.data-selector]="'product-add-to-cart-button-' + product.id" [attr.data-cy]="'product-add-to-cart-button'" type="button" [appSendAnalyticsOnClick]="'add-to-cart-button'" >Add to cart</button>
-      <img [src]="product.image" [attr.data-selector]="'product-image-' + product.id" [attr.data-cy]="'product-image'"/>
+<div class="container py-5">
+  <div class="row text-center text-white mb-5">
+    <div class="col-lg-7 mx-auto">
+      <h1 class="display-4">Products</h1>
     </div>
+  </div>
+
+  <ng-container *ngIf="products$ | async as productsList">
+    <ng-container *ngFor="let product of productsList">
+      <div class="row" data-selector="product-container">
+        <div class="col-lg-8 mx-auto">
+          <ul class="list-group shadow">
+            <li class="list-group-item">
+              <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                <div class="media-body order-2 order-lg-1">
+                  <h5 class="mt-0 font-weight-bold mb-2 dupa"
+                      [attr.data-selector]="'product-title-' + product.id"
+                      [attr.data-cy]="'product-title'">
+                    {{ product.title }}
+                  </h5>
+                  <p class="font-italic text-muted mb-0 small"
+                     [attr.data-selector]="'product-description-' + product.id"
+                  >{{ product.description }}</p>
+                  <div class="d-flex align-items-center justify-content-between mt-1">
+                    <h6 class="font-weight-bold my-2"
+                        [attr.data-selector]="'product-price-' + product.id"
+                        [attr.data-cy]="'product-price'"
+                    >{{ product.price | formatPrice}}</h6>
+                    <span class="font-italic text-muted mb-0 small"
+                          [attr.data-selector]="'product-all-reviews-' + product.id"
+                    >All reviews: {{ product.rating.count }}</span>
+                    <span [attr.data-selector]="'product-rating-' + product.id">{{ product.rating.rate }}</span>
+                  </div>
+                  <div class="d-flex flex-column mt-4">
+                    <a
+                       [attr.data-selector]="'product-details-button-' + product.id"
+                       class="btn btn-primary btn-sm" type="button" appSendAnalyticsOnClick="details-button">Details</a>
+                    <button
+                      [attr.data-selector]="'product-add-to-cart-button-' + product.id"
+                      [attr.data-cy]="'product-add-to-cart-button'"
+                      [appSendAnalyticsOnClick]="'add-to-cart-button'"
+                      class="btn btn-outline-primary btn-sm mt-2" type="button">Add to cart</button>
+                  </div>
+                </div>
+                <div class="ml-lg-5 order-1 order-lg-2" >
+                  <img [src]="product.image"
+                       [attr.data-selector]="'product-image-' + product.id"
+                       [attr.data-cy]="'product-image'"
+                       alt="Generic placeholder image" width="200" />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
   </ng-container>
-</ng-container>
+</div>
+
