@@ -1,14 +1,14 @@
 <ng-container *ngIf="products$ | async as productsList">
   <ng-container *ngFor="let product of productsList">
     <div data-selector="product-container">
-      <h5 [attr.data-selector]="'product-title-' + product.id">{{ product.title }}</h5>
+      <h5 [attr.data-selector]="'product-title-' + product.id" [attr.data-cy]="'product-title'">{{ product.title }}</h5>
       <p [attr.data-selector]="'product-description-' + product.id" >{{ product.description }}</p>
-      <h6 [attr.data-selector]="'product-price-' + product.id">{{ product.price | formatPrice }}</h6>
+      <h6 [attr.data-selector]="'product-price-' + product.id" [attr.data-cy]="'product-price'">{{ product.price | formatPrice }}</h6>
       <span [attr.data-selector]="'product-all-reviews-' + product.id">All reviews: {{ product.rating.count }}</span>
       <span [attr.data-selector]="'product-rating-' + product.id">{{ product.rating.rate }}</span>
       <a [attr.data-selector]="'product-details-button-' + product.id" [appSendAnalyticsOnClick]="'details-button'">Details</a>
-      <button [attr.data-selector]="'product-add-to-cart-button-' + product.id" type="button" [appSendAnalyticsOnClick]="'add-to-cart-button'" >Add to cart</button>
-      <img [src]="product.image" [attr.data-selector]="'product-image-' + product.id"/>
+      <button [attr.data-selector]="'product-add-to-cart-button-' + product.id" [attr.data-cy]="'product-add-to-cart-button'" type="button" [appSendAnalyticsOnClick]="'add-to-cart-button'" >Add to cart</button>
+      <img [src]="product.image" [attr.data-selector]="'product-image-' + product.id" [attr.data-cy]="'product-image'"/>
     </div>
   </ng-container>
 </ng-container>
