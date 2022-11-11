@@ -1,0 +1,5 @@
+<ul class="list-inline small">
+  <li class="list-inline-item m-0 mr-1" [attr.data-selector]="'rate'">{{ rateValue }}</li>
+  <li *ngFor="let starSuccess of [].constructor(filledStars)" class="list-inline-item m-0"><i class="fa fa-star text-success" [attr.data-selector]="'stars-success'"></i></li>
+  <li *ngFor="let starGray of [].constructor(emptyStars)" class="list-inline-item m-0"><i class="fa fa-star-o text-gray" [attr.data-selector]="'stars-gray'"></i></li>
+</ul>
