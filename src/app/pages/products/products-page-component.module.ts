@@ -17,5 +17,5 @@ import { RouterModule } from '@angular/router';
   providers: [],
   exports: [ProductsPageComponent]
 })
-export class ProductsComponentModule {
+export class ProductsPageComponentModule {
 }
