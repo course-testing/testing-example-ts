@@ -26,4 +26,18 @@ describe('Product list', () => {
     firstItemAddToCartButton().should('exist');
     firstItemImage().should('exist');
   })
+
+
+  it('should send analytics when add to cart button clicked', () => {
+    const { firstItemAddToCartButton } = given();
+
+    cy.intercept('POST', '**/my/api/path').as('postAnalytics')
+
+    firstItemAddToCartButton().click();
+
+    cy.wait('@postAnalytics').should(({ request, response }) => {
+      expect(request.body).to.have.property('data');
+      expect(response?.statusCode).to.be.eq(200);
+    })
+  });
 })
