@@ -38,8 +38,10 @@ export class ProductListPage {
     return imageElement && imageElement.properties['src'] || '';
   }
 
-  ratingFor(productId: string): string {
-    return this._getText(this._fixture.debugElement.query(By.css(`[data-selector="product-rating-${productId}"]`)));
+  ratingFor(productId: string): DebugElement {
+    return this._fixture.debugElement.query(By.css(`[data-selector="product-rating-${productId}"]`));
+    // alternative is return this._fixture.debugElement.query(By.css('app-stars'));
+    // alternative is  return this._fixture.debugElement.query(By.directive(FakeStarsComponent));
   }
 
   hasDetailsButtonFor(productId: string): boolean {

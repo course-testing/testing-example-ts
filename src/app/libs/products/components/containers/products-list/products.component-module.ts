@@ -6,9 +6,10 @@ import {
 } from '../../../../shared/directives/send-analytics-on-click/send-analytics-directives.module';
 import { FormatPricePipeModule } from '../../../../shared/pipes/price/format-price-pipe.module';
 import { StarsComponentModule } from '../../../../shared/components/stars/stars.component-module';
+import { RatingServiceModule } from '../../../services/rate/rating-service.module';
 
 @NgModule({
-  imports: [CommonModule, SendAnalyticsDirectivesModule, FormatPricePipeModule, StarsComponentModule],
+  imports: [CommonModule, SendAnalyticsDirectivesModule, FormatPricePipeModule, StarsComponentModule, RatingServiceModule],
   declarations: [ProductsComponent],
   providers: [],
   exports: [ProductsComponent]

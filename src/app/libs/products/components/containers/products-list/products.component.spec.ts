@@ -12,18 +12,35 @@ import {
 import { ANALYTICS_SERVICE_TEST_PROVIDER } from '../../../../shared/services/analytics/analytics-service-test.provider';
 import { CLOCK_TEST_PROVIDER } from '../../../../shared/services/clock/clock-test.provider';
 import objectContaining = jasmine.objectContaining;
+import { CommonModule } from '@angular/common';
+import {
+  SendAnalyticsDirectivesModule
+} from '../../../../shared/directives/send-analytics-on-click/send-analytics-directives.module';
+import { FormatPricePipeModule } from '../../../../shared/pipes/price/format-price-pipe.module';
+import {
+  FakeStarsComponent,
+  StarsComponentTestingModule
+} from '../../../../shared/components/stars/stars.component.testing-module';
+import { RATING_SERVICE } from '../../../services/rate/rating-service';
 
 describe('ProductsComponent', () => {
   const given = async (data: {
     givenProducts: ProductModel[]
   }) => {
     await TestBed.configureTestingModule({
-      imports: [ProductsComponentModule],
+      imports: [CommonModule, SendAnalyticsDirectivesModule, FormatPricePipeModule, StarsComponentTestingModule ],
+      declarations: [ProductsComponent],
       providers: [
         {
           provide: ProductsService,
           useValue: {
             getProducts: () => of(data.givenProducts)
+          }
+        },
+        {
+          provide: RATING_SERVICE,
+          useValue: {
+            add: () => of(void 0)
           }
         },
         ANALYTICS_SERVICE_TEST_PROVIDER,
@@ -37,6 +54,7 @@ describe('ProductsComponent', () => {
     return {
       productListPage: new ProductListPage(fixture),
       analyticServiceAddSpy: spyOn(TestBed.inject(ANALYTICS_SERVICE), 'add').and.callThrough(),
+      rateServiceAddSpy: spyOn(TestBed.inject(RATING_SERVICE), 'add'),
     }
   };
 
@@ -91,9 +109,29 @@ describe('ProductsComponent', () => {
     expect(productListPage.priceFor('__PRODUCT_ID_1__')).toEqual('123.56 zł');
     expect(productListPage.allReviewsFor('__PRODUCT_ID_1__')).toEqual('All reviews: 234');
     expect(productListPage.cartButtonFor('__PRODUCT_ID_1__')).toEqual('Add to cart');
-    expect(productListPage.ratingFor('__PRODUCT_ID_1__')).toEqual('5');
     expect(productListPage.imageFor('__PRODUCT_ID_1__')).toEqual('__PRODUCT_IMAGE_1__');
     expect(productListPage.hasDetailsButtonFor('__PRODUCT_ID_1__')).toBeTrue();
+  });
+
+  it('should display rating', async() => {
+    const { productListPage } = await given({
+      givenProducts: productModel
+    });
+
+    const ratingComponent = productListPage.ratingFor('__PRODUCT_ID_1__').componentInstance;
+
+    expect(ratingComponent.rate).toEqual(5);
+  });
+
+  it('should save selected rating', async() => {
+    const { productListPage, rateServiceAddSpy } = await given({
+      givenProducts: productModel
+    });
+
+    const ratingComponent = productListPage.ratingFor('__PRODUCT_ID_1__').componentInstance;
+    ratingComponent.rateSelected.emit(10);
+
+    expect(rateServiceAddSpy).toHaveBeenCalledWith(10);
   });
 
   it('should sent analytics when details button clicked', async () => {

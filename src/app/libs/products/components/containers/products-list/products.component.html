@@ -31,6 +31,7 @@
                     >All reviews: {{ product.rating.count }}</span>
                     <app-stars
                       [rate]="product.rating.rate"
+                      (rateSelected)="onRateSelected($event)"
                       [attr.data-selector]="'product-rating-' + product.id"
                     ></app-stars>
                   </div>
